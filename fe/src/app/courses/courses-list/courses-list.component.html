@@ -1,0 +1,44 @@
+<!-- TODO after getUserInfo is implemented add ngIf to display this only for Teacher-->
+<mat-toolbar>
+  <button mat-stroked-button [routerLink]="'/addCourse'">
+    <mat-icon>add</mat-icon>
+    <span class="ml-2">Add Course</span>
+  </button>
+</mat-toolbar>
+
+<div class="mt-4">
+  <h1>Courses</h1>
+</div>
+
+<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+  <div ngxSlickItem *ngFor="let course of coursesToDisplay" class="slide">
+    <mat-card class="m-4" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start center">
+      <mat-card-content class="cursor-pointer">
+        <img class="w-[120px] h-[120px] mx-auto" [attr.src]="'/assets/courses_logo.png'" />
+        <div class="w-full pt-2 text-xl">
+          {{ course }} Java
+        </div>
+        <div class="mt-5">
+          12 Lessons
+        </div>
+        <div class="absolute -mt-10 right-4">
+          <button mat-raised-button>
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ngx-slick-carousel>
+
+<div class="absolute -mt-40 left-0" *ngIf="showLeftButton">
+  <button mat-fab (click)="prev()">
+    <mat-icon>navigate_before</mat-icon>
+  </button>
+</div>
+
+<div class="absolute -mt-40 right-0" *ngIf="showRightButton">
+  <button mat-fab (click)="next()">
+    <mat-icon>navigate_next</mat-icon>
+  </button>
+</div>

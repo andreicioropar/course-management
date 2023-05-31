@@ -1,0 +1,14 @@
+<mat-drawer-container class="w-full h-full" autosize="">
+  <mat-drawer opened="true" mode="side" class="drawer">
+    <app-header-nav></app-header-nav>
+  </mat-drawer>
+
+  <div>
+    <app-header></app-header>
+  </div>
+
+  <div class="p-4 content">
+    <ng-content></ng-content>
+  </div>
+
+</mat-drawer-container>

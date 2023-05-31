@@ -1,0 +1,31 @@
+
+<div class="flex w-full justify-center items-center">
+  <img
+    class="w-[50px] m-"
+    src="/assets/courses_logo.png"
+    alt="app.title" />
+</div>
+
+<div class="w-full flex flex-col">
+  <mat-nav-list>
+    <ng-container *ngFor="let link of navLinks">
+      <a *ngIf="link.shouldShow()" mat-list-item [routerLink]="link.routerLink">
+        <div
+          [matTooltip]="link.labelKey"
+          matTooltipPosition="right"
+          class="flex align-middle">
+          <mat-icon>
+            {{ link.matIcon }}
+          </mat-icon>
+          <span class="pl-2">
+            {{link.labelKey}}
+          </span>
+        </div>
+      </a>
+    </ng-container>
+    <mat-divider></mat-divider>
+    <div class="absolute bottom-0 ml-10">asdasd</div>
+
+  </mat-nav-list>
+</div>
+

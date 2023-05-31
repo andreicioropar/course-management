@@ -1,0 +1,46 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+@import "@angular/material/theming";
+
+@include mat.core();
+
+$mat-density: 0;
+$mat-dark-theme: mat.define-dark-theme((
+        color: (
+                primary: mat.define-palette(mat.$teal-palette),
+                accent: mat.define-palette(mat.$grey-palette),
+        )
+));
+
+@include mat.all-component-themes($mat-dark-theme);
+
+/**
+TAILWIND
+ */
+ @import 'tailwindcss/base';
+ @import 'tailwindcss/components';
+ @import 'tailwindcss/utilities';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: teal;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.12);
+}
+
+.drawer {
+  background-color: teal;
+}
+
+// .content {
+//   background-color: red;
+// }
