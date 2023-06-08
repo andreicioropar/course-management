@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
+@use 'src/styles/colors' as *;
 
 @import "@angular/material/theming";
 
@@ -28,6 +29,8 @@ body {
 }
 
 body {
+  background-color: $theme-body-bg;
+  // color: $theme-light-grey;
   margin: 0;
   padding: 0;
 }

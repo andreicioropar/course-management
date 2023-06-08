@@ -20,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
-import { CoursesListComponent } from './courses/courses-list/courses-list.component';
+import { CoursesListComponent } from './courses/components/courses-list/courses-list.component';
+
 
 @NgModule({
   exports: [

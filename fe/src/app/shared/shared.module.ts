@@ -15,8 +15,8 @@ import { HeaderNavComponent } from './components/header/header-nav/header-nav.co
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CoursesSearchComponent } from '../courses/courses-search/courses-search.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CoursesSearchComponent } from '../courses/components/courses-search/courses-search.component';
 
 @NgModule({
   exports: [

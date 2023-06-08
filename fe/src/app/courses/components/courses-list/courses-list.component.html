@@ -14,13 +14,25 @@
   <div ngxSlickItem *ngFor="let course of coursesToDisplay" class="slide">
     <mat-card class="m-4" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start center">
       <mat-card-content class="cursor-pointer">
-        <img class="w-[120px] h-[120px] mx-auto" [attr.src]="'/assets/courses_logo.png'" />
+        <img class="w-[180px] h-[180px] mx-auto"
+            [attr.src]=
+            "course.imageUrl ? course.imageUrl : '/assets/no-image-icon.png'"
+            [attr.alt]="course.name"/>
         <div class="w-full pt-2 text-xl">
-          {{ course }} Java
+          {{ course.name }}
         </div>
-        <div class="mt-5">
-          12 Lessons
-        </div>
+
+        <ng-container *ngIf="getNumberOfLessons(course) | async as lessonCount; else noLessons">
+          <div class="mt-5">
+            {{ lessonCount }} Lessons
+          </div>
+        </ng-container>
+        <ng-template #noLessons>
+          <div class="mt-5">
+            0 Lessons
+          </div>
+        </ng-template>
+
         <div class="absolute -mt-10 right-4">
           <button mat-raised-button>
             <mat-icon>navigate_next</mat-icon>
@@ -31,13 +43,13 @@
   </div>
 </ngx-slick-carousel>
 
-<div class="absolute -mt-40 left-0" *ngIf="showLeftButton">
+<div class="absolute -mt-48 left-0" *ngIf="showLeftButton">
   <button mat-fab (click)="prev()">
     <mat-icon>navigate_before</mat-icon>
   </button>
 </div>
 
-<div class="absolute -mt-40 right-0" *ngIf="showRightButton">
+<div class="absolute -mt-48 right-0" *ngIf="showRightButton">
   <button mat-fab (click)="next()">
     <mat-icon>navigate_next</mat-icon>
   </button>

@@ -1,5 +1,9 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
+import { CoursesService } from '../../services/courses.service';
+import { Course } from 'src/app/shared/model/course.model';
+import { Curricula } from 'src/app/shared/model/curricula.model';
+import { Observable, map, shareReplay } from 'rxjs';
 
 @Component({
   selector: 'app-courses-list',
@@ -10,23 +14,50 @@ export class CoursesListComponent implements OnInit {
 
   @ViewChild('slickModal') slickModal!: SlickCarouselComponent;
 
-  coursesToDisplay: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  coursesToDisplay: Course[] = [];
   displayedCourses: number = 0;
-  display: number[] = [];
+  display: Course[] = [];
   slideConfig: any;
   showLeftButton: boolean = false;
-  showRightButton: boolean = true;
+  showRightButton: boolean = false;
+  curricula!: Curricula;
+  cachedLessonCounts: Map<number, Observable<number>> = new Map<number, Observable<number>>();
+  test: number = 0;
 
-  constructor() {}
+  constructor(private courseService: CoursesService) {}
 
   ngOnInit(): void {
-    this.shuffleCourseList(this.coursesToDisplay);
+    this.courseService.getAllCourses()
+      .subscribe(res => {
+        this.coursesToDisplay = res;
+        this.updateButtonVisibilty();
+        this.shuffleCourseList(this.coursesToDisplay);
+      });
+
     this.updateSlideConfig();
     this.updateDisplay();
     this.displayedCourses = this.slideConfig.slidesToShow;
   }
 
-  private shuffleCourseList(array: number[]) {
+  getNumberOfLessons(course: Course): Observable<number> {
+    const courseId = course.id;
+
+    if (this.cachedLessonCounts.has(courseId)) {
+      return this.cachedLessonCounts.get(courseId)!;
+    }
+
+    const lessonCount$ = this.courseService.getCurriculaByCourseId(courseId)
+      .pipe(
+        map(res => res.lessonDTOList.length),
+        shareReplay(1)
+      );
+
+    this.cachedLessonCounts.set(courseId, lessonCount$);
+
+    return lessonCount$;
+  }
+
+  private shuffleCourseList(array: Course[]) {
     let currentIndex = array.length,
       randomIndex;
 
@@ -113,11 +144,16 @@ export class CoursesListComponent implements OnInit {
   private updateButtonVisibilty() {
     const initialDisplayedCourses = this.slideConfig.slidesToShow;
 
+    if (this.coursesToDisplay.length > this.displayedCourses && this.showRightButton === false) {
+      this.showRightButton = true;
+    }
+
     if (this.displayedCourses > initialDisplayedCourses && this.displayedCourses !== this.coursesToDisplay.length) {
       this.showLeftButton = true;
       this.showRightButton = true;
-    } else if (this.displayedCourses === this.coursesToDisplay.length) {
+    } else if (this.displayedCourses === this.coursesToDisplay.length && this.showRightButton === true) {
       this.showRightButton = false;
+      this.showLeftButton = true;
     } else if (this.displayedCourses === initialDisplayedCourses) {
       this.showLeftButton = false;
     }
