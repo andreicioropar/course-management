@@ -4,10 +4,12 @@
     <form [formGroup]="form" (ngSubmit)="login()">
       <p>
         <mat-form-field appearance="fill">
-          <input type="text"
-          matInput
-          placeholder="username"
-          formControlName="username" />
+          <input
+            type="text"
+            matInput
+            placeholder="username"
+            formControlName="username"
+          />
         </mat-form-field>
       </p>
 
@@ -19,27 +21,26 @@
             formControlName="password"
             placeholder="password"
             type="password"
-            [type]="shouldHidePassword ? 'password' : 'text'" />
-            <button
-              mat-icon-button
-              matSuffix
-              type="button"
-              (click)="shouldHidePassword = !shouldHidePassword"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="shouldHidePassword">
-              <mat-icon>{{
-                shouldHidePassword ? 'visibility_off' : 'visibility'
-              }}</mat-icon>
-            </button>
+            [type]="shouldHidePassword ? 'password' : 'text'"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="shouldHidePassword = !shouldHidePassword"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="shouldHidePassword"
+          >
+            <mat-icon>{{
+              shouldHidePassword ? "visibility_off" : "visibility"
+            }}</mat-icon>
+          </button>
         </mat-form-field>
       </p>
 
       <div class="button">
-        <button type="submit" mat-flat-button color="primary">
-          Login
-        </button>
+        <button type="submit" mat-flat-button color="primary">Login</button>
       </div>
     </form>
   </mat-card-content>
 </mat-card>
-

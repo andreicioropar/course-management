@@ -10,13 +10,12 @@ interface NavLink {
 @Component({
   selector: 'app-header-nav',
   templateUrl: './header-nav.component.html',
-  styleUrls: ['./header-nav.component.scss']
+  styleUrls: ['./header-nav.component.scss'],
 })
 export class HeaderNavComponent implements OnInit {
-
   navLinks: NavLink[] = [];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.initNavLinks();
@@ -41,7 +40,7 @@ export class HeaderNavComponent implements OnInit {
         matIcon: 'settings',
         labelKey: 'Settings',
         shouldShow: () => true,
-      }
-    ]
+      },
+    ];
   }
 }

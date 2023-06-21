@@ -7,18 +7,15 @@ import { AuthState } from 'src/app/shared/redux/auth.state';
 @Component({
   selector: 'app-header-user',
   templateUrl: './header-user.component.html',
-  styleUrls: ['./header-user.component.scss']
+  styleUrls: ['./header-user.component.scss'],
 })
 export class HeaderUserComponent implements OnInit {
-
   @Select(AuthState.getCurrentUserInfo)
   currentUser$!: Observable<UserInfo>;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   logout() {}
-
 }

@@ -5,7 +5,7 @@ export interface LessonRequest {
 }
 
 export interface LessonResponse {
-  id: number,
+  id: number;
   name: string;
   content: Blob;
   userId: number;

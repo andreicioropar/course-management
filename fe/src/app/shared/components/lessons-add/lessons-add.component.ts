@@ -1,16 +1,16 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { LessonRequest, LessonResponse } from "../../model/lesson.model";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { LessonsService } from "src/app/lessons/services/lessons.service";
-import { Select } from "@ngxs/store";
-import { AuthState } from "../../redux/auth.state";
-import { Observable } from "rxjs";
-import { UserInfo } from "../../model/user.model";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { LessonRequest, LessonResponse } from '../../model/lesson.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LessonsService } from 'src/app/lessons/services/lessons.service';
+import { Select } from '@ngxs/store';
+import { AuthState } from '../../redux/auth.state';
+import { Observable } from 'rxjs';
+import { UserInfo } from '../../model/user.model';
 
 @Component({
   selector: 'app-lessons-add',
   templateUrl: './lessons-add.component.html',
-  styleUrls: ['./lessons-add.component.scss']
+  styleUrls: ['./lessons-add.component.scss'],
 })
 export class LessonsAddComponent implements OnInit {
   @Output() lesson = new EventEmitter<LessonResponse>();
@@ -26,7 +26,7 @@ export class LessonsAddComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private lessonService: LessonsService,
+    private lessonService: LessonsService
   ) {}
 
   ngOnInit(): void {
@@ -53,10 +53,7 @@ export class LessonsAddComponent implements OnInit {
   }
 
   private getUserId(): number {
-    this.currentUser$
-      .subscribe(
-        user => this.userId = user.id
-      );
+    this.currentUser$.subscribe((user) => (this.userId = user.id));
 
     return this.userId;
   }
@@ -64,7 +61,7 @@ export class LessonsAddComponent implements OnInit {
   saveLesson() {
     const lessonName = this.lessonForm.get('lessonName')?.value;
     // const content = this.content || '';
-    const content = "4pyTIMOgIGxhIG1vZGU="
+    const content = '4pyTIMOgIGxhIG1vZGU=';
     const userId = this.getUserId();
 
     const lesson: LessonRequest = {
@@ -73,11 +70,9 @@ export class LessonsAddComponent implements OnInit {
       userId: userId,
     };
 
-    this.lessonService.addLesson(lesson)
-      .subscribe(res => {
-        this.lesson.emit(res);
-      });
-
+    this.lessonService.addLesson(lesson).subscribe((res) => {
+      this.lesson.emit(res);
+    });
   }
 
   onFileSelected(event: any): void {

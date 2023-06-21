@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Select } from '@ngxs/store';
 import { Observable, map } from 'rxjs';
-import { CourseRequest, CourseResponse } from 'src/app/shared/model/course.model';
+import {
+  CourseRequest,
+  CourseResponse,
+} from 'src/app/shared/model/course.model';
 import { UserInfo } from 'src/app/shared/model/user.model';
 import { AuthState } from 'src/app/shared/redux/auth.state';
 import { createUrlValidator } from 'src/app/shared/util/validators.utils';
@@ -13,10 +16,9 @@ import { CurriculaRequest } from 'src/app/shared/model/curricula.model';
 @Component({
   selector: 'app-courses-crud',
   templateUrl: './courses-crud.component.html',
-  styleUrls: ['./courses-crud.component.scss']
+  styleUrls: ['./courses-crud.component.scss'],
 })
 export class CoursesCrudComponent implements OnInit {
-
   courseForm!: FormGroup;
   lessons: LessonResponse[] = [];
   userId: number = 0;
@@ -28,8 +30,8 @@ export class CoursesCrudComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private courseService: CoursesService,
-  ) { }
+    private courseService: CoursesService
+  ) {}
 
   ngOnInit(): void {
     this.initCourseForm();
@@ -65,8 +67,9 @@ export class CoursesCrudComponent implements OnInit {
       imageUrl: imageUrl,
     };
 
-    this.courseService.addCourse(course)
-      .subscribe(res => this.savedCourse = res);
+    this.courseService
+      .addCourse(course)
+      .subscribe((res) => (this.savedCourse = res));
   }
 
   addLesson(lesson: LessonResponse) {
@@ -74,10 +77,7 @@ export class CoursesCrudComponent implements OnInit {
   }
 
   private getUserId(): number {
-    this.currentUser$
-      .subscribe(
-        user => this.userId = user.id
-      );
+    this.currentUser$.subscribe((user) => (this.userId = user.id));
 
     return this.userId;
   }
@@ -90,18 +90,16 @@ export class CoursesCrudComponent implements OnInit {
     const courseId = this.savedCourse?.courseId;
 
     if (courseId !== undefined) {
-      for(let lesson of this.lessons) {
+      for (let lesson of this.lessons) {
         this.lessonIds.push(lesson.id);
       }
 
       const curriculaRequest: CurriculaRequest = {
         courseId: courseId,
-        lessonIdList: this.lessonIds
-      }
+        lessonIdList: this.lessonIds,
+      };
 
       this.courseService.addLessonsToCourse(curriculaRequest).subscribe();
-
     } //Error handling
   }
-
 }

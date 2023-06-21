@@ -1,4 +1,4 @@
-import { LessonDTOList } from "./course.model";
+import { LessonDTOList } from './course.model';
 
 export interface CurriculaRequest {
   courseId: number;

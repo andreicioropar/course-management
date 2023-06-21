@@ -1,8 +1,8 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { LoginRequest } from "../model/auth.model";
-import { UserInfo } from "../model/user.model";
-import { Observable } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { LoginRequest } from '../model/auth.model';
+import { UserInfo } from '../model/user.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +20,4 @@ export class AuthService {
   public getCurrentUser(username: string): Observable<UserInfo> {
     return this.http.get<UserInfo>(`${this.GET_CURRENT_USER_URL}/${username}`);
   }
-
 }

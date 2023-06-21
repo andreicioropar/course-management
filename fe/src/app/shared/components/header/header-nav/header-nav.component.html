@@ -1,9 +1,5 @@
-
 <div class="flex w-full justify-center items-center">
-  <img
-    class="w-[50px] m-"
-    src="/assets/courses_logo.png"
-    alt="app.title" />
+  <img class="w-[50px] m-" src="/assets/courses_logo.png" alt="app.title" />
 </div>
 
 <div class="w-full flex flex-col">
@@ -13,18 +9,17 @@
         <div
           [matTooltip]="link.labelKey"
           matTooltipPosition="right"
-          class="flex align-middle">
+          class="flex align-middle"
+        >
           <mat-icon>
             {{ link.matIcon }}
           </mat-icon>
           <span class="pl-2">
-            {{link.labelKey}}
+            {{ link.labelKey }}
           </span>
         </div>
       </a>
     </ng-container>
     <mat-divider></mat-divider>
-
   </mat-nav-list>
 </div>
-

@@ -3,16 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-lessons-crud',
   templateUrl: './lessons-crud.component.html',
-  styleUrls: ['./lessons-crud.component.scss']
+  styleUrls: ['./lessons-crud.component.scss'],
 })
 export class LessonsCrudComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  addLessonsToCourse() {
-
-  }
+  addLessonsToCourse() {}
 }

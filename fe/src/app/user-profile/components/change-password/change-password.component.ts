@@ -10,10 +10,9 @@ import { UserProfileService } from '../../services/user-profile.service';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss']
+  styleUrls: ['./change-password.component.scss'],
 })
 export class ChangePasswordComponent implements OnInit {
-
   @Select(AuthState.getCurrentUserInfo)
   currentUser$!: Observable<UserInfo>;
 
@@ -29,25 +28,19 @@ export class ChangePasswordComponent implements OnInit {
   shouldHideNewPassword = true;
   shouldHideConfirmPassword = true;
 
-  constructor(
-    private userProfileService: UserProfileService,
-  ) {
+  constructor(private userProfileService: UserProfileService) {
     this.form.addValidators(
       createPasswordComparisonValidator(
         this.form.get('newPassword'),
-        this.form.get('confirmNewPassword'),
+        this.form.get('confirmNewPassword')
       )
-    )
+    );
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   private getUserId(): number {
-    this.currentUser$
-      .subscribe(
-        user => this.userId = user.id
-      );
+    this.currentUser$.subscribe((user) => (this.userId = user.id));
 
     return this.userId;
   }
@@ -60,8 +53,8 @@ export class ChangePasswordComponent implements OnInit {
     const changePassword: UserChangePassword = {
       userId: userId,
       oldUserPassword: oldPassword,
-      newUserPassword: newPassword
-    }
+      newUserPassword: newPassword,
+    };
 
     this.userProfileService.changePassword(changePassword).subscribe();
   }

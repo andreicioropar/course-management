@@ -1,7 +1,7 @@
 <ng-container *ngIf="currentUser$ | async as user; else loginButton">
   <button [matMenuTriggerFor]="menu" mat-button>
     <mat-icon>account_circle</mat-icon>
-    <span>{{user.userName | titlecase}}</span>
+    <span>{{ user.userName | titlecase }}</span>
   </button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item [routerLink]="'/profile'">

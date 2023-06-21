@@ -1,4 +1,4 @@
-export interface CourseRequest{
+export interface CourseRequest {
   name: string;
   userId: number;
   imageUrl: string;

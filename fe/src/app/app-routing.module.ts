@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CoursesCrudComponent } from './courses/components/courses-crud/courses-crud.component';
 import { LessonsCrudComponent } from './lessons/components/lessons-crud/lessons-crud.component';
+import { CourseViewComponent } from './courses/components/course-view/course-view.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule),
   },
+  {path: 'courses/:id', component: CourseViewComponent},
 ];
 
 @NgModule({

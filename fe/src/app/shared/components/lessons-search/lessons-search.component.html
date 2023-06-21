@@ -1,16 +1,22 @@
-<mat-form-field class="w-full min-w-0" style="margin-bottom: -1.25em" appearance="outline" >
+<mat-form-field
+  class="w-full min-w-0"
+  style="margin-bottom: -1.25em"
+  appearance="outline"
+>
   <input
     matInput
     placeholder="Search"
     [(ngModel)]="selectedResult"
     [matAutocomplete]="auto"
-    [formControl]="searchCtrl" />
+    [formControl]="searchCtrl"
+  />
 
   <button
     *ngIf="selectedResult"
     matSuffix
     mat-icon-button
-    (click)="clearSelection()">
+    (click)="clearSelection()"
+  >
     <mat-icon>close</mat-icon>
   </button>
   <button *ngIf="!selectedResult" mat-icon-button matSuffix type="button">
@@ -18,16 +24,12 @@
   </button>
 </mat-form-field>
 
-<mat-autocomplete
-  #auto="matAutocomplete"
-  (optionSelected)="onSelected()">
-
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelected()">
   <mat-option *ngIf="hasNoResults" [disabled]="true" class="is-loading">
     No results
   </mat-option>
 
   <mat-option *ngFor="let lesson of filteredResult" [value]="lesson">
-    <span>{{lesson.name}}</span>
+    <span>{{ lesson.name }}</span>
   </mat-option>
-
 </mat-autocomplete>

@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { AuthService } from "../services/auth.service";
-import { Login } from "./auth.actions";
-import { switchMap, tap } from "rxjs";
-import { UserInfo } from "../model/user.model";
+import { Injectable } from '@angular/core';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { AuthService } from '../services/auth.service';
+import { Login } from './auth.actions';
+import { switchMap, tap } from 'rxjs';
+import { UserInfo } from '../model/user.model';
 
 export class AuthStateModel {
   accessToken?: string;
@@ -35,7 +35,7 @@ export class AuthState {
         tap((response: UserInfo) => {
           patchState({
             user: response,
-          })
+          });
         })
       );
   }

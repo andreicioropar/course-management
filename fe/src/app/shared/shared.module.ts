@@ -33,7 +33,7 @@ import { LessonsAddComponent } from './components/lessons-add/lessons-add.compon
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
-    MatCardModule
+    MatCardModule,
   ],
 })
 export class SharedMaterialModule {}

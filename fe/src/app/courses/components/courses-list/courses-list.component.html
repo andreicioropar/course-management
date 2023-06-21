@@ -15,27 +15,37 @@
   <h1>Courses</h1>
 </div>
 
-<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+<ngx-slick-carousel
+  class="carousel"
+  #slickModal="slick-carousel"
+  [config]="slideConfig"
+>
   <div ngxSlickItem *ngFor="let course of coursesToDisplay" class="slide">
-    <mat-card class="m-4" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start center">
-      <mat-card-content class="cursor-pointer">
-        <img class="w-[150px] h-[150px] mx-auto"
-            [attr.src]=
-            "course.imageUrl ? course.imageUrl : '/assets/no-image-icon.png'"
-            [attr.alt]="course.courseName"/>
+    <mat-card
+      class="m-4"
+      fxLayout.gt-sm="row"
+      fxLayoutAlign.gt-sm="start center"
+    >
+      <mat-card-content
+        class="cursor-pointer"
+        [routerLink]="createViewRouteUrl(course)"
+      >
+        <img
+          class="w-[150px] h-[150px] mx-auto"
+          [attr.src]="
+            course.imageUrl ? course.imageUrl : '/assets/no-image-icon.png'
+          "
+          [attr.alt]="course.courseName"
+        />
         <div class="w-full pt-2 text-xl">
           {{ course.courseName }}
         </div>
 
         <ng-container *ngIf="course.lessonDTOList.length > 0; else noLessons">
-          <div class="mt-5">
-            {{ course.lessonDTOList.length }} Lessons
-          </div>
+          <div class="mt-5">{{ course.lessonDTOList.length }} Lessons</div>
         </ng-container>
         <ng-template #noLessons>
-          <div class="mt-5">
-            0 Lessons
-          </div>
+          <div class="mt-5">0 Lessons</div>
         </ng-template>
 
         <div class="absolute -mt-10 right-4">

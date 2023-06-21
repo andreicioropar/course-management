@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { CourseResponse } from 'src/app/shared/model/course.model';
 import { CoursesService } from '../../../courses/services/courses.service';
 
 @Component({
   selector: 'app-courses-search',
   templateUrl: './courses-search.component.html',
-  styleUrls: ['./courses-search.component.scss']
+  styleUrls: ['./courses-search.component.scss'],
 })
 export class CoursesSearchComponent implements OnInit {
-
   searchCtrl: FormControl<string>;
   filteredResult: CourseResponse[] = [];
   selectedResult: CourseResponse | null = null;
@@ -19,14 +24,15 @@ export class CoursesSearchComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private courseService: CoursesService) {
+    private courseService: CoursesService
+  ) {
     this.searchCtrl = formBuilder.nonNullable.control('');
   }
 
   ngOnInit(): void {
     this.searchCtrl.valueChanges
       .pipe(
-        filter(res => {
+        filter((res) => {
           return res !== null && res.length >= this.minLengthTerm;
         }),
         distinctUntilChanged(),
@@ -35,9 +41,8 @@ export class CoursesSearchComponent implements OnInit {
           this.filteredResult = [];
           this.hasNoResults = false;
         }),
-        switchMap(searchTerm => {
-          return this.courseService
-            .searchCourses(searchTerm)
+        switchMap((searchTerm) => {
+          return this.courseService.searchCourses(searchTerm);
         })
       )
       .subscribe({
@@ -46,8 +51,8 @@ export class CoursesSearchComponent implements OnInit {
           if (courseResponse.length === 0) {
             this.hasNoResults = true;
           }
-        }
-      })
+        },
+      });
   }
 
   clearSelection() {

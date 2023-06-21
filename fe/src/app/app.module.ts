@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from '@angular/forms';
 import { appStates } from './shared/redux/app.state';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +17,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { CoursesListComponent } from './courses/components/courses-list/courses-list.component';
 import { CoursesCrudComponent } from './courses/components/courses-crud/courses-crud.component';
 import { LessonsCrudComponent } from './lessons/components/lessons-crud/lessons-crud.component';
+import { MyCoursesComponent } from './courses/components/my-courses/my-courses.component';
+import { CourseViewComponent } from './courses/components/course-view/course-view.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { LessonsCrudComponent } from './lessons/components/lessons-crud/lessons-
     CoursesListComponent,
     CoursesCrudComponent,
     LessonsCrudComponent,
+    MyCoursesComponent,
+    CourseViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,6 @@ import { LessonsCrudComponent } from './lessons/components/lessons-crud/lessons-
     SlickCarouselModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

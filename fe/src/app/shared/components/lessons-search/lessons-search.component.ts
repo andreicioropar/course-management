@@ -2,12 +2,18 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { LessonResponse } from '../../model/lesson.model';
 import { LessonsService } from 'src/app/lessons/services/lessons.service';
-import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  switchMap,
+  tap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-lessons-search',
   templateUrl: './lessons-search.component.html',
-  styleUrls: ['./lessons-search.component.scss']
+  styleUrls: ['./lessons-search.component.scss'],
 })
 export class LessonsSearchComponent implements OnInit {
   @Output() lesson = new EventEmitter<LessonResponse>();
@@ -20,10 +26,10 @@ export class LessonsSearchComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private lessonService: LessonsService,
+    private lessonService: LessonsService
   ) {
     this.searchCtrl = formBuilder.nonNullable.control('');
-   }
+  }
 
   ngOnInit(): void {
     this.searchCtrl.valueChanges
@@ -34,9 +40,8 @@ export class LessonsSearchComponent implements OnInit {
           this.filteredResult = [];
           this.hasNoResults = false;
         }),
-        switchMap(searchTerm => {
-          return this.lessonService
-            .searchLessons(searchTerm)
+        switchMap((searchTerm) => {
+          return this.lessonService.searchLessons(searchTerm);
         })
       )
       .subscribe({
@@ -45,8 +50,8 @@ export class LessonsSearchComponent implements OnInit {
           if (lessonResponse.length === 0) {
             this.hasNoResults = true;
           }
-        }
-      })
+        },
+      });
   }
 
   clearSelection() {
@@ -55,10 +60,9 @@ export class LessonsSearchComponent implements OnInit {
   }
 
   onSelected() {
-    if(this.selectedResult) {
+    if (this.selectedResult) {
       this.lesson.emit(this.selectedResult);
       this.clearSelection();
     }
   }
-
 }

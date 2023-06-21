@@ -10,10 +10,9 @@ import { UserProfileService } from '../../services/user-profile.service';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss']
+  styleUrls: ['./edit-profile.component.scss'],
 })
 export class EditProfileComponent implements OnInit {
-
   @Select(AuthState.getCurrentUserInfo)
   currentUser$!: Observable<UserInfo>;
 
@@ -23,13 +22,13 @@ export class EditProfileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private store: Store,
-    private userProfileService: UserProfileService,
-  ) { }
+    private userProfileService: UserProfileService
+  ) {}
 
   ngOnInit(): void {
     this.currentUser$
-      .pipe(filter(user => user !== undefined))
-      .subscribe(user => {
+      .pipe(filter((user) => user !== undefined))
+      .subscribe((user) => {
         this.initForm(user);
       });
   }
@@ -48,10 +47,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   private getUserId(): number {
-    this.currentUser$
-      .subscribe(
-        user => this.userId = user.id
-      );
+    this.currentUser$.subscribe((user) => (this.userId = user.id));
 
     return this.userId;
   }
@@ -62,10 +58,9 @@ export class EditProfileComponent implements OnInit {
 
     const userChangeEmail: UserChangeEmail = {
       userId: userId,
-      newUserEmail: email
-    }
+      newUserEmail: email,
+    };
 
-    this.userProfileService
-      .updateUser(userChangeEmail).subscribe();
+    this.userProfileService.updateUser(userChangeEmail).subscribe();
   }
 }
