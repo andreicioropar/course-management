@@ -1,0 +1,31 @@
+<mat-card class="mb-4">
+  <mat-card-content>
+    <p>Add a new lesson</p>
+    <form [formGroup]="lessonForm" (ngSubmit)="saveLesson()">
+      <mat-form-field class="w-full">
+        <mat-label>Lesson name</mat-label>
+        <input type="text"
+          matInput
+          formControlName="lessonName">
+      </mat-form-field>
+
+      <mat-form-field class="w-full">
+        <input
+          type="file"
+          class="absolute top-0 z-10 h-full w-full cursor-pointer opacity-0"
+          accept=".pdf"
+          formControlName="content"
+          (change)="onFileSelected($event)"
+        />
+        <mat-label>Upload file</mat-label>
+        <input matInput cdkFocusInitial class="z-0" disabled [value]="selectedFile?.name" />
+        <mat-icon matSuffix class="mr-2">cloud_upload</mat-icon>
+        <mat-hint class="mat-form-field-hint-end">PDF</mat-hint>
+      </mat-form-field>
+
+      <button type="submit" mat-flat-button color="primary">
+        Save Lesson
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

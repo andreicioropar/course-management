@@ -1,12 +1,13 @@
-export interface LessonDTOList {
-  id: number;
-  name: string;
-  content: Blob;
-  userId: number;
+import { LessonDTOList } from "./course.model";
+
+export interface CurriculaRequest {
+  courseId: number;
+  lessonIdList: number[];
 }
 
-export interface Curricula {
+export interface CurriculaResponse {
   courseId: number;
   courseName: string;
+  imageUrl: string;
   lessonDTOList: LessonDTOList[];
 }

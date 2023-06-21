@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
+  shouldHidePassword = true;
+
   constructor(private store: Store) { }
 
   ngOnInit(): void {

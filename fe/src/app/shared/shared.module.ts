@@ -16,7 +16,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CoursesSearchComponent } from '../courses/components/courses-search/courses-search.component';
+import { CoursesSearchComponent } from './components/courses-search/courses-search.component';
+import { MatCardModule } from '@angular/material/card';
+import { LessonsSearchComponent } from './components/lessons-search/lessons-search.component';
+import { LessonsAddComponent } from './components/lessons-add/lessons-add.component';
 
 @NgModule({
   exports: [
@@ -25,12 +28,12 @@ import { CoursesSearchComponent } from '../courses/components/courses-search/cou
     MatButtonModule,
     MatMenuModule,
     MatAutocompleteModule,
-    MatButtonModule,
     MatInputModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
+    MatCardModule
   ],
 })
 export class SharedMaterialModule {}
@@ -42,10 +45,15 @@ export class SharedMaterialModule {}
     HeaderUserComponent,
     HeaderNavComponent,
     CoursesSearchComponent,
+    LessonsSearchComponent,
+    LessonsAddComponent,
   ],
   exports: [
     HeaderComponent,
     BasePageComponent,
+    CoursesSearchComponent,
+    LessonsSearchComponent,
+    LessonsAddComponent,
   ],
   imports: [
     CommonModule,

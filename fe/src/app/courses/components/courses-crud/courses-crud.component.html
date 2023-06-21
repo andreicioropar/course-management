@@ -1,0 +1,68 @@
+<app-base-page>
+  <mat-toolbar class="mb-4">
+    <div class="flex space-x-5">
+      <button mat-stroked-button [routerLink]="'/dashboard'">
+        <mat-icon>arrow_back</mat-icon>
+        <span class="ml-1">Back</span>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <mat-card class="mb-4">
+    <mat-card-content>
+      <p>Add a new course</p>
+      <form [formGroup]="courseForm" (ngSubmit)="saveCourse()">
+        <mat-form-field class="w-full">
+          <mat-label>Course name</mat-label>
+          <input type="text"
+            matInput
+            formControlName="courseName">
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label>Image URL</mat-label>
+          <input type="text"
+            matInput
+            formControlName="imageUrl">
+        </mat-form-field>
+
+        <button type="submit" mat-flat-button color="primary">
+          Save Course
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <app-lessons-add
+    (lesson)="addLesson($event)">
+  </app-lessons-add>
+
+  <mat-card>
+    <mat-card-content>
+      <p>Search for existing lessons</p>
+      <app-lessons-search
+        (lesson)="addLesson($event)">
+      </app-lessons-search>
+      <mat-list>
+        <mat-list-item *ngFor="let lesson of lessons; let i = index">
+          {{lesson.name}}
+
+          <div class="absolute right-0">
+            <button
+              *ngIf="lessons.length > 0"
+              matSuffix
+              mat-icon-button
+              (click)="deleteLesson(i)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </mat-list-item>
+
+      </mat-list>
+      <button mat-flat-button color="primary" (click)="addLessonsToCourse()">
+        Add lessons to course
+      </button>
+    </mat-card-content>
+  </mat-card>
+
+</app-base-page>

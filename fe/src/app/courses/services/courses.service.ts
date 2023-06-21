@@ -1,23 +1,34 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { Course } from "src/app/shared/model/course.model";
-import { Curricula } from "src/app/shared/model/curricula.model";
+import { CourseRequest, CourseResponse } from "src/app/shared/model/course.model";
+import { CurriculaRequest, CurriculaResponse } from "src/app/shared/model/curricula.model";
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  private readonly COURSES_URL = '/api/v1/courses'
-  private readonly CURRICULA_URL = '/api/v1/curricula'
+  private readonly COURSES_URL = '/api/v1/courses';
 
   constructor(private http: HttpClient) {}
 
-  public getAllCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(this.COURSES_URL);
+  public getAllCourses(): Observable<CourseResponse[]> {
+    return this.http.get<CourseResponse[]>(this.COURSES_URL);
   }
 
-  public getCurriculaByCourseId(courseId: number): Observable<Curricula> {
-    return this.http.get<Curricula>(`${this.CURRICULA_URL}/${courseId}`)
+  public searchCourses(searchTerm: string): Observable<CourseResponse[]> {
+    const params = searchTerm ? new HttpParams({fromObject: {searchTerm}}) : new HttpParams();
+
+    return this.http.get<CourseResponse[]>(this.COURSES_URL, {
+      params,
+    });
+  }
+
+  public addCourse(courseRequest: CourseRequest): Observable<CourseResponse> {
+    return this.http.post<CourseResponse>(this.COURSES_URL, courseRequest);
+  }
+
+  public addLessonsToCourse(curriculaRequest: CurriculaRequest):  Observable<CurriculaResponse> {
+    return this.http.put<CurriculaResponse>(this.COURSES_URL, curriculaRequest);
   }
 }

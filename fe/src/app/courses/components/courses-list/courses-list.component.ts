@@ -1,9 +1,11 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
 import { CoursesService } from '../../services/courses.service';
-import { Course } from 'src/app/shared/model/course.model';
-import { Curricula } from 'src/app/shared/model/curricula.model';
+import { CourseResponse } from 'src/app/shared/model/course.model';
 import { Observable, map, shareReplay } from 'rxjs';
+import { Select } from '@ngxs/store';
+import { AuthState } from 'src/app/shared/redux/auth.state';
+import { UserInfo } from 'src/app/shared/model/user.model';
 
 @Component({
   selector: 'app-courses-list',
@@ -12,16 +14,17 @@ import { Observable, map, shareReplay } from 'rxjs';
 })
 export class CoursesListComponent implements OnInit {
 
+  @Select(AuthState.getCurrentUserInfo)
+  currentUser$!: Observable<UserInfo>;
+
   @ViewChild('slickModal') slickModal!: SlickCarouselComponent;
 
-  coursesToDisplay: Course[] = [];
+  coursesToDisplay: CourseResponse[] = [];
   displayedCourses: number = 0;
-  display: Course[] = [];
+  display: CourseResponse[] = [];
   slideConfig: any;
   showLeftButton: boolean = false;
   showRightButton: boolean = false;
-  curricula!: Curricula;
-  cachedLessonCounts: Map<number, Observable<number>> = new Map<number, Observable<number>>();
   test: number = 0;
 
   constructor(private courseService: CoursesService) {}
@@ -39,25 +42,21 @@ export class CoursesListComponent implements OnInit {
     this.displayedCourses = this.slideConfig.slidesToShow;
   }
 
-  getNumberOfLessons(course: Course): Observable<number> {
-    const courseId = course.id;
-
-    if (this.cachedLessonCounts.has(courseId)) {
-      return this.cachedLessonCounts.get(courseId)!;
-    }
-
-    const lessonCount$ = this.courseService.getCurriculaByCourseId(courseId)
-      .pipe(
-        map(res => res.lessonDTOList.length),
-        shareReplay(1)
-      );
-
-    this.cachedLessonCounts.set(courseId, lessonCount$);
-
-    return lessonCount$;
+  public userCanAdd() {
+    return this.currentUser$.pipe(
+      map(user => {
+        if (user) {
+          return (
+            user.userRole.includes("Admin") || user.userRole.includes("Teacher")
+          );
+        } else {
+          return false;
+        }
+      })
+    );
   }
 
-  private shuffleCourseList(array: Course[]) {
+  private shuffleCourseList(array: CourseResponse[]) {
     let currentIndex = array.length,
       randomIndex;
 
