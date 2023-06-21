@@ -4,3 +4,14 @@ export interface UserInfo {
   userEmail: string;
   userRole: String;
 }
+
+export interface UserChangeEmail {
+  userId: number;
+  newUserEmail: string;
+}
+
+export interface UserChangePassword {
+  userId: number;
+  oldUserPassword: string;
+  newUserPassword: string;
+}

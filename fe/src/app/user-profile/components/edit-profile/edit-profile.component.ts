@@ -3,8 +3,9 @@ import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable, filter } from 'rxjs';
-import { UserInfo } from 'src/app/shared/model/user.model';
+import { UserChangeEmail, UserInfo } from 'src/app/shared/model/user.model';
 import { AuthState } from 'src/app/shared/redux/auth.state';
+import { UserProfileService } from '../../services/user-profile.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -16,11 +17,13 @@ export class EditProfileComponent implements OnInit {
   @Select(AuthState.getCurrentUserInfo)
   currentUser$!: Observable<UserInfo>;
 
+  userId: number = 0;
   form!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
     private store: Store,
+    private userProfileService: UserProfileService,
   ) { }
 
   ngOnInit(): void {
@@ -44,7 +47,25 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
+  private getUserId(): number {
+    this.currentUser$
+      .subscribe(
+        user => this.userId = user.id
+      );
+
+    return this.userId;
+  }
+
   onSubmitForm() {
-    // this.
+    const userId = this.getUserId();
+    const email = this.form.get('email')?.value;
+
+    const userChangeEmail: UserChangeEmail = {
+      userId: userId,
+      newUserEmail: email
+    }
+
+    this.userProfileService
+      .updateUser(userChangeEmail).subscribe();
   }
 }

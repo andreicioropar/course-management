@@ -12,4 +12,7 @@ export class LessonsCrudComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  addLessonsToCourse() {
+
+  }
 }

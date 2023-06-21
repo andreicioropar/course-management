@@ -1,1 +1,23 @@
-<p>lessons-crud works!</p>
+<app-base-page>
+  <mat-toolbar class="mb-4">
+    <div class="flex space-x-5">
+      <button mat-stroked-button [routerLink]="'/dashboard'">
+        <mat-icon>arrow_back</mat-icon>
+        <span class="ml-1">Back</span>
+      </button>
+    </div>
+  </mat-toolbar>
+
+  <app-lessons-add></app-lessons-add>
+
+  <!-- <mat-card>
+    <mat-card-content>
+      <p>Search for a course</p>
+      <app-courses-search></app-courses-search>
+
+      <button mat-flat-button color="primary" (click)="addLessonsToCourse()">
+        Add lessons to course
+      </button>
+    </mat-card-content>
+  </mat-card> -->
+</app-base-page>
