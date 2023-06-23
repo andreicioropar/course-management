@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import {
   UserChangeEmail,
   UserChangePassword,
+  UserEnrollRequest,
 } from 'src/app/shared/model/user.model';
 
 @Injectable({
@@ -22,5 +23,9 @@ export class UserProfileService {
       `${this.USER_URL}/change/password`,
       userChangePassword
     );
+  }
+
+  public enroll(userEnrollRequest: UserEnrollRequest) {
+    return this.http.post(`${this.USER_URL}/enroll`, userEnrollRequest);
   }
 }

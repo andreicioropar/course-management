@@ -15,3 +15,8 @@ export interface UserChangePassword {
   oldUserPassword: string;
   newUserPassword: string;
 }
+
+export interface UserEnrollRequest {
+  userId: number;
+  courseId: number;
+}

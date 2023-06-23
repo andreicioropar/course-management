@@ -1,0 +1,12 @@
+.stacked-cards {
+  display: flex;
+  flex-direction: column;
+  width: 72%;
+}
+
+.sidebar-card {
+  margin-left: 14px;
+  width: 28%;
+  position: sticky;
+  top: 15px;
+}

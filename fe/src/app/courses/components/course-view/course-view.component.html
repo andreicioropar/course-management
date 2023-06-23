@@ -1,1 +1,135 @@
-<app-base-page> </app-base-page>
+<app-base-page>
+  <div *ngIf="course$ | async as course" class="flex justify-center">
+    <div class="w-3/5 mx-auto">
+      <mat-toolbar class="mb-4">
+        <div class="flex space-x-5">
+          <button mat-stroked-button [routerLink]="'/dashboard'">
+            <mat-icon>arrow_back</mat-icon>
+            <span class="ml-1">Back</span>
+          </button>
+
+          <div *ngIf="userCanEdit() | async">
+            <button mat-stroked-button [routerLink]="'/dashboard'">
+              <mat-icon>edit</mat-icon>
+              <span class="ml-1">Edit course</span>
+            </button>
+          </div>
+        </div>
+      </mat-toolbar>
+
+      <div class="flex">
+        <div class="stacked-cards">
+          <h1>{{ course.courseName }}</h1>
+          <p>
+            Learn Java basics Learn Java basicsLearn Java basicsLearn Java
+            basicsLearn Java basicsLearn Java basicsLearn Java basicsLearn Java
+            basicsLearn Java basicsLearn Java basicsLearn Java basicsLearn Java
+            basicsLearn Java basicsLearn Java basicsLearn Java basicsLearn Java
+            basicsLearn Java basicsLearn Java basicsLearn Java basicsLearn Java
+            basicsLearn Java basics
+          </p>
+
+          <mat-card>
+            <mat-card-content>
+              <h1>What you'll learn</h1>
+              <div class="grid grid-cols-2">
+                <p *ngFor="let toTearn of toTearnList">
+                  <mat-icon class="text-sm">check</mat-icon>
+                  {{ toTearn }}
+                </p>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="mt-4">
+            <mat-card-content>
+              <h1>Course content</h1>
+              <div *ngIf="dataSource.length > 0; else noLessons">
+                <table mat-table [dataSource]="dataSource" class="w-full">
+                  <ng-container matColumnDef="lessonName">
+                    <th mat-header-cell *matHeaderCellDef>Lesson name</th>
+                    <td mat-cell *matCellDef="let lesson">{{ lesson.name }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="downloadCourse">
+                    <th mat-header-cell *matHeaderCellDef>
+                      <div class="float-right">DownloadCourse</div>
+                    </th>
+                    <td mat-cell *matCellDef="let lesson" class="text-right">
+                      <button mat-stroked-button>
+                        <mat-icon>download</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                  ></tr>
+                </table>
+              </div>
+
+              <ng-template #noLessons>
+                <p>No lessons added to this course yet</p>
+              </ng-template>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="mt-4">
+            <mat-card-content>
+              <h1>Requirements</h1>
+              <p>Lorem ipsum dolor sit amet.</p>
+              <p>Lorem ipsum dolor sit amet.</p>
+              <p>Lorem ipsum dolor sit amet.</p>
+              <p>Lorem ipsum dolor sit amet.</p>
+              <p>Lorem ipsum dolor sit amet.</p>
+              <p>Lorem ipsum dolor sit amet.</p>
+              <p>Lorem ipsum dolor sit amet.</p>
+              <p>Lorem ipsum dolor sit amet.</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <mat-card class="sidebar-card h-fit">
+          <mat-card-content>
+            <img
+              class="w-[75px] h-[75px] mx-auto"
+              [attr.src]="
+                course.imageUrl ? course.imageUrl : '/assets/no-image-icon.png'
+              "
+              [attr.alt]="course.courseName"
+            />
+            <div class="mt-4">
+              <h1>This course includes:</h1>
+              <p>Lorem ipsum dolor sit amet.</p>
+              <p>Lorem ipsum dolor sit amet.</p>
+              <p>Lorem ipsum dolor sit amet.</p>
+              <p>Lorem ipsum dolor sit amet.</p>
+            </div>
+            <div *ngIf="currentUser$ | async; else login" class="mt-4">
+              <button
+                mat-flat-button
+                color="primary"
+                class="w-full"
+                (click)="enrollToCourse()"
+              >
+                Enroll to course
+              </button>
+            </div>
+            <ng-template #login>
+              <button
+                mat-flat-button
+                color="primary"
+                class="w-full"
+                [routerLink]="'/login'"
+              >
+                To enroll please login
+              </button>
+            </ng-template>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</app-base-page>

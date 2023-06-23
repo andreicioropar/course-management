@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderNavComponent } from './components/header/header-nav/header-nav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoursesSearchComponent } from './components/courses-search/courses-search.component';
@@ -34,6 +35,7 @@ import { LessonsAddComponent } from './components/lessons-add/lessons-add.compon
     MatListModule,
     MatTooltipModule,
     MatCardModule,
+    MatTableModule,
   ],
 })
 export class SharedMaterialModule {}

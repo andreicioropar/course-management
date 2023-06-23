@@ -6,6 +6,7 @@ export const createCourseViewRouteUrl = (course: CourseResponse): string => {
 
 const createCourseUrlPath = (course: CourseResponse): string => {
   const pathId = course.courseId;
+  const pathDetail = `${course.courseName}`;
 
-  return `${pathId}`;
+  return `${pathId}-${pathDetail}`;
 };
