@@ -6,6 +6,8 @@ import { Observable, filter } from 'rxjs';
 import { UserChangeEmail, UserInfo } from 'src/app/shared/model/user.model';
 import { AuthState } from 'src/app/shared/redux/auth.state';
 import { UserProfileService } from '../../services/user-profile.service';
+import { GetCurrentUserInfo, Logout } from 'src/app/shared/redux/auth.actions';
+import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
   selector: 'app-edit-profile',
@@ -31,6 +33,7 @@ export class EditProfileComponent implements OnInit {
       .subscribe((user) => {
         this.initForm(user);
       });
+    this.store.dispatch(new GetCurrentUserInfo());
   }
 
   private initForm(user: UserInfo) {
@@ -61,6 +64,11 @@ export class EditProfileComponent implements OnInit {
       newUserEmail: email,
     };
 
-    this.userProfileService.updateUser(userChangeEmail).subscribe();
+    this.userProfileService.updateUser(userChangeEmail).subscribe({
+      next: () => {
+        this.store.dispatch(new Logout());
+        this.store.dispatch(new Navigate(['/login']));
+      },
+    });
   }
 }

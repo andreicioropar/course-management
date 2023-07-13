@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginRequest } from '../model/auth.model';
+import { LoginRequest, LoginResponse } from '../model/auth.model';
 import { UserInfo } from '../model/user.model';
 import { Observable } from 'rxjs';
 
@@ -13,8 +13,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  public login(loginRequest: LoginRequest) {
-    return this.http.post(this.LOGIN_URL, loginRequest);
+  public login(loginRequest: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(this.LOGIN_URL, loginRequest);
   }
 
   public getCurrentUser(username: string): Observable<UserInfo> {

@@ -1,3 +1,36 @@
 <div class="mt-4">
   <h1>My Courses</h1>
+
+  <ng-container *ngIf="courses$ | async as userCourses; else noCourses">
+    <div class="flex flex-wrap justify-strech">
+      <mat-card class="m-4" *ngFor="let course of userCourses">
+        <mat-card-content
+          class="cursor-pointer"
+          [routerLink]="createViewRouteUrl(course)"
+        >
+          <img
+            class="w-[150px] h-[150px] mx-auto"
+            [attr.src]="
+              course.imageUrl ? course.imageUrl : '/assets/no-image-icon.png'
+            "
+            [attr.alt]="course.courseName"
+          />
+          <div class="w-full pt-2 text-xl">
+            {{ course.courseName }}
+          </div>
+
+          <ng-container *ngIf="course.lessonDTOList.length > 0; else noLessons">
+            <div class="mt-5">{{ course.lessonDTOList.length }} Lessons</div>
+          </ng-container>
+          <ng-template #noLessons>
+            <div class="mt-5">0 Lessons</div>
+          </ng-template>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+
+  <ng-template #noCourses>
+    <div>No courses</div>
+  </ng-template>
 </div>
